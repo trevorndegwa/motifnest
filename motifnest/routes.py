@@ -148,12 +148,18 @@ def update_post(post_id):
 @app.route("/post/<int:post_id>/delete", methods=['POST'])
 @login_required
 def delete_post(post_id):
-    post = Post.query.get_or_404(post_id)
-    if post.author != current_user:
-        abort(403)
-    db.session.delete(post)
-    db.session.commit()
-    flash('Your post has been deleted!', 'success')
+    try:
+        post = Post.query.get_or_404(post_id)
+        if post.author != current_user:
+                abort(403)
+        Comment.query.filter_by(post_id=post_id).delete()
+        db.session.delete(post)
+        db.session.commit()
+        flash('Your post has been deleted!', 'success')
+    except Exception as e:
+        db.session.rollback()
+        flash('An error occurred. Please try again.', 'danger')
+        app.logger.error(f'Error deleting posts: {e}')
     return redirect(url_for('home'))
 
 @app.route("/user/<string:username>")
