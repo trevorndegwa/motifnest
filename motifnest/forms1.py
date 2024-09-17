@@ -51,9 +51,4 @@ class UpdateAccountForm(FlaskForm):
 class PostForm(FlaskForm):
         title = StringField('Title', validators=[DataRequired()])
         content = TextAreaField('Content', validators=[DataRequired()])
-        image = FileField('Post Image', validators=[FileAllowed(['jpg', 'jpeg', 'png', 'gif'])])
         submit = SubmitField('Post')
-
-class CommentForm(FlaskForm):
-    content = TextAreaField('Comment', validators=[DataRequired()])
-    submit = SubmitField('Post Comment')
