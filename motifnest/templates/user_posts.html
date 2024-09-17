@@ -3,6 +3,7 @@
 {% block content %}
     <div class="container">
         <div class="row">
+            <h1 class="mb-3">Posts by {{ user.username }} ({{ posts.total }})</h1>
             {% for post in posts.items %}
             <div class="col-md-4 mb-4">
                 <div class="card h-100">
@@ -16,13 +17,13 @@
                         </div>
                         <h2 class="card-title"><a class="article-title" style="text-decoration: none" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
                         <p class="card-text">{{ post.content[:150] }}{{ '...' if post.content|length > 150 else '' }}</p>
-                        
+
                         <!-- Display post image if it exists -->
                         {% if post.image_file %}
                         <img class="post-image img-fluid" src="{{ url_for('static', filename='post_images/' + post.image_file) }}" alt="Post Image" style="max-width: 100%; height: auto;">
                         {% endif %}
                     </div>
-                    
+
                     <div class="card-footer">
                         <!-- Display comments (limited to 2) -->
                         <h5>Comments:</h5>
@@ -36,7 +37,7 @@
                             </div>
                         </div>
                         {% endfor %}
-                        
+
                         <!-- See more comments link -->
                         {% if post.comments|length > 0 %}
                         <a href="{{ url_for('post', post_id=post.id) }}" class="text-info">See more comments...</a>
@@ -44,7 +45,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Start a new row for every 3 posts -->
             {% if loop.index % 3 == 0 %}
                 </div><div class="row">
@@ -53,9 +54,9 @@
             {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
                 {% if page_num %}
                         {% if posts.page == page_num %}
-                                <a class="btn btn-info mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+                                <a class="btn btn-info mb-4" href="{{ url_for('user_posts', username=user.username, page=page_num) }}">{{ page_num }}</a>
                         {% else %}
-                                <a class="btn btn-outline-info mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+                                <a class="btn btn-outline-info mb-4" href="{{ url_for('user_posts', username=user.username, page=page_num) }}">{{ page_num }}</a>
                         {% endif %}
                 {% else %}
                         ...
@@ -64,4 +65,3 @@
         </div>
     </div>
 {% endblock content %}
-
