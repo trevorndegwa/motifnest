@@ -2,6 +2,14 @@
 
 MotifNest is a social platform where users can share and showcase their unique motifs, images, and posts. The web application is built using Flask and SQLAlchemy, offering features like user authentication, profile management, post creation with image uploads, and a comment system.
 
+# Deployed Application
+
+You can access the live version of the application here: [MotifNest](https://trevorndegwa96.pythonanywhere.com/home).
+
+## LinkedIn
+
+Feel free to connect with me on [LinkedIn](https://www.linkedin.com/in/trevor-ndegwa-794246194/).
+
 ## Technologies Used
 
 - **Flask**: Python-based web framework for the backend.
